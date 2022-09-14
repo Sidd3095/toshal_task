@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  @ViewChild('htmlData') htmlData!: ElementRef;
+
   getDate:any;
   starttime:any;
   endtime:any;
@@ -49,8 +55,23 @@ var resultInMinutes = Math.round(hourDiff / 60000);
   // When user clicks on update button to submit updated value
 UpdateItem() {
 
-}
-  title = 'toshal';
 
 
 }
+
+//---- download PNG File------//
+SavePNG(){
+  const DATA: any = document.getElementById('htmlData');
+  html2canvas(DATA).then((canvas) => {
+    const base64image = canvas.toDataURL("image/png");
+    var anchor = document.createElement('a');
+    anchor.setAttribute("href",base64image);
+    anchor.setAttribute("download","data.png")
+    anchor.click();
+  });
+}
+
+
+
+}
+

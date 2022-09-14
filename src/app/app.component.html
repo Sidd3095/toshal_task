@@ -1,53 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<div class="container">
-  <h2>Table Using Array</h2>
-  <br><br>
-  <hr>
-  <div class="row">
-    <div class="col-sm-8">Select Date :<input type="date" [(ngModel)]="getDate" value="" placeholder="getDate"></div>
-    <div class="col-sm-2"><button class="btn btn-success" (click)="loadData()">Load</button></div>
-  </div>
-  <hr>
-<div class="row">
-<div class="col-sm-2">Start Time :<input type="time" [(ngModel)]="starttime" value="" placeholder="startdate"></div>
-<div class="col-sm-2">End Time :<input type="time" [(ngModel)]="endtime" value="" placeholder="Enddate"></div>
-<div class="col-sm-6">Description :<input type="text" [(ngModel)]="description" value="" placeholder="description" style="width: 100;"></div>
-<div class="col-sm-2"><button class="btn btn-primary" (click)="saveData()">Save</button></div>
+  </head>
+  <body>
+    <div class="container" >
+      <h2>Table Using Array</h2>
+      <br /><br />
+      <hr />
+      <div class="row">
+        <div class="col-sm-8">
+          Select Date :<input
+            type="date"
+            [(ngModel)]="getDate"
+            value=""
+            placeholder="getDate"
+          />
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-success" (click)="loadData()">Load</button>
+          &nbsp;
+          <button class="btn btn-success"(click)="SavePNG()">
+          Export Timesheet as PNG
+          </button>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-2">
+          Start Time :<input
+            type="time"
+            [(ngModel)]="starttime"
+            value=""
+            placeholder="startdate"
+          />
+        </div>
+        <div class="col-sm-2">
+          End Time :<input
+            type="time"
+            [(ngModel)]="endtime"
+            value=""
+            placeholder="Enddate"
+          />
+        </div>
+        <div class="col-sm-6">
+          Description :<input
+            type="text"
+            [(ngModel)]="description"
+            value=""
+            placeholder="description"
+            style="width: 100"
+          />
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-primary" (click)="saveData()">Save</button>
+        </div>
+      </div>
+      <hr />
+      <table class="table"  id="htmlData">
+        <thead>
+          <tr>
+            <th>Sr_no</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Minutes</th>
+            <th>Task description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of loadTableItems; let i = index" >
+            <td>{{ i + 1 }}</td>
+            <td>{{ data.starttime }}</td>
+            <td>{{ data.endtime }}</td>
+            <td>{{ data.minutes }}</td>
+            <td>{{ data.description }}</td>
+            <td>
+              <button (click)="UpdateItem()">
+                <span class="glyphicon glyphicon-pencil"></span>Edit</button
+              >&nbsp;<button (click)="DeleteItem(i)">
+                <span class="glyphicon glyphicon-remove"></span>Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-</div>   
-<hr>       
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Sr_no</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Minutes</th>
-        <th>Task description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of loadTableItems;let i= index">
-        <td>{{i+1}}</td>
-        <td>{{data.starttime}}</td>
-        <td>{{data.endtime}}</td>
-        <td>{{data.minutes}}</td>
-        <td>{{data.description}}</td>
-        <td><button (click)="UpdateItem()"><span class="glyphicon glyphicon-pencil"></span>Edit</button>&nbsp;<button (click)="DeleteItem(i)"><span class="glyphicon glyphicon-remove"></span>Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</body>
+    </div>
+  </body>
 </html>
