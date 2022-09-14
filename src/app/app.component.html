@@ -12,6 +12,11 @@
 
   </head>
   <body>
+
+
+
+
+
     <div class="container" >
       <h2>Table Data</h2>
       <br /><br />
@@ -84,9 +89,12 @@
             <td>{{ data.minutes }}</td>
             <td>{{ data.description }}</td>
             <td>
-              <button (click)="UpdateItem()">
-                <span class="glyphicon glyphicon-pencil"></span>Edit</button
-              >&nbsp;<button (click)="DeleteItem(i)">
+
+
+      <button (click)="UpdateItem(i)" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-pencil"></span>Edit</button>&nbsp;
+
+                <button (click)="DeleteItem(i)">
                 <span class="glyphicon glyphicon-remove"></span>Delete
               </button>
             </td>
@@ -95,5 +103,60 @@
       </table>
 
     </div>
+
+    <div class="container">
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form class="form-horizontal" [formGroup]="form"  (ngSubmit)="submit()">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Edit Table</h4>
+            </div>
+            <div class="modal-body">
+
+              <input type="text" hidden formControlName="index" id="index">
+              <input type ="text" hidden formControlName="date" id="date">
+
+              <div class="mb-3">
+                <label for="Start Time">Start Time</label>
+                <input type="time"formControlName="starttime" class="form-control" id="starttime" placeholder="Start Time" [ngClass]="{ 'is-invalid': submitted && formData.starttime.errors }" />
+                <div *ngIf="submitted && formData.starttime.errors" class="invalid-feedback">
+                    <div *ngIf="formData.starttime.errors.required">Start Time is required</div>
+                      </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="End Time">End Time</label>
+              <input type="time" formControlName="endtime" class="form-control" id="endtime" placeholder="End Time" [ngClass]="{ 'is-invalid': submitted && formData.endtime.errors }" />
+              <div *ngIf="submitted && formData.endtime.errors" class="invalid-feedback">
+                  <div *ngIf="formData.endtime.errors.required">End Time is required</div>
+                    </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="Task Description">Task Description</label>
+            <input type="Bank Name" formControlName="description" class="form-control" id="description" placeholder="task description" [ngClass]="{ 'is-invalid': submitted && formData.description.errors }" />
+            <div *ngIf="submitted && formData.description.errors" class="invalid-feedback">
+                <div *ngIf="formData.description.errors.required">task description is required</div>
+                  </div>
+        </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Submit</button>
+
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   </body>
 </html>
